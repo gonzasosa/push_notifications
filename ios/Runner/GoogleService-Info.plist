@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1033168644939-82ar91ajjj139pkj5lvakn1s2950jkjb.apps.googleusercontent.com</string>
+	<string>1033168644939-s8qqs5c5c12v0qe2b446pickful1vkqe.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1033168644939-82ar91ajjj139pkj5lvakn1s2950jkjb</string>
+	<string>com.googleusercontent.apps.1033168644939-s8qqs5c5c12v0qe2b446pickful1vkqe</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBX7Ozh8PLj1_IJaBnhzTIR93K_NWhcD_o</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.pushNotifications</string>
+	<string>com.somnio.pushNotifications</string>
 	<key>PROJECT_ID</key>
 	<string>push-notifications-be959</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1033168644939:ios:907a25ff93ea8f56a296ce</string>
+	<string>1:1033168644939:ios:85e0271266493710a296ce</string>
 </dict>
 </plist>

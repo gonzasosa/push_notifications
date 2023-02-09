@@ -48,17 +48,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCHoWeE0aVKSN6zO5eMQGRr6cYp7TAHBCs',
-    appId: '1:1033168644939:web:5d0232388bef29f0a296ce',
+    appId: '1:1033168644939:web:ac5c7d0428195530a296ce',
     messagingSenderId: '1033168644939',
     projectId: 'push-notifications-be959',
     authDomain: 'push-notifications-be959.firebaseapp.com',
     storageBucket: 'push-notifications-be959.appspot.com',
-    measurementId: 'G-11V6SQRKX0',
+    measurementId: 'G-LL47KDYMHD',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB6i7aukQTRUDKWyrhNp25vPeKaA-I-dqQ',
-    appId: '1:1033168644939:android:7a5e3011b96d47c6a296ce',
+    appId: '1:1033168644939:android:dcb7079a82b16f43a296ce',
     messagingSenderId: '1033168644939',
     projectId: 'push-notifications-be959',
     storageBucket: 'push-notifications-be959.appspot.com',
@@ -66,11 +66,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBX7Ozh8PLj1_IJaBnhzTIR93K_NWhcD_o',
-    appId: '1:1033168644939:ios:907a25ff93ea8f56a296ce',
+    appId: '1:1033168644939:ios:85e0271266493710a296ce',
     messagingSenderId: '1033168644939',
     projectId: 'push-notifications-be959',
     storageBucket: 'push-notifications-be959.appspot.com',
-    iosClientId: '1033168644939-82ar91ajjj139pkj5lvakn1s2950jkjb.apps.googleusercontent.com',
-    iosBundleId: 'com.example.pushNotifications',
+    iosClientId: '1033168644939-s8qqs5c5c12v0qe2b446pickful1vkqe.apps.googleusercontent.com',
+    iosBundleId: 'com.somnio.pushNotifications',
   );
 }

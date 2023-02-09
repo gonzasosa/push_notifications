@@ -53,17 +53,8 @@ class App extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: BlocListener<NotificationBloc, NotificationState>(
-            listenWhen: (previous, current) {
-              return previous != current && current.notification != null;
-            },
-            listener: (context, state) {
-              final notification = state.notification!;
-              Navigator.of(context).push(SomePage.route());
-            },
-            child: const Scaffold(
-              body: Center(child: Text('Hola')),
-            ),
+          home: const Scaffold(
+            body: Center(child: Text('Hola')),
           ),
         ),
       ),
