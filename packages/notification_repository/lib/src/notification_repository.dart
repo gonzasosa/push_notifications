@@ -10,16 +10,19 @@ import 'package:rxdart/rxdart.dart' hide Notification;
 class NotificationRepository {
   /// {@macro notification_repository}
   NotificationRepository({
+    String? vapidKey,
     FirebaseMessaging? firebaseMessaging,
     Stream<RemoteMessage>? onNotificationOpened,
     Stream<RemoteMessage>? onForegroundNotification,
-  })  : _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance,
+  })  : _vapidKey = vapidKey,
+        _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance,
         _onForegroundNotification =
             onForegroundNotification ?? FirebaseMessaging.onMessage,
         _onNotificationOpenedController = BehaviorSubject<Notification>() {
     _initialize(onNotificationOpened ?? FirebaseMessaging.onMessageOpenedApp);
   }
 
+  final String? _vapidKey;
   final FirebaseMessaging _firebaseMessaging;
   final Stream<RemoteMessage> _onForegroundNotification;
   final BehaviorSubject<Notification> _onNotificationOpenedController;
@@ -28,18 +31,18 @@ class NotificationRepository {
     final response = await _firebaseMessaging.requestPermission();
     final status = response.authorizationStatus;
     if (status == AuthorizationStatus.authorized) {
-      await _firebaseMessaging.setForegroundNotificationPresentationOptions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
       final message = await _firebaseMessaging.getInitialMessage();
-      print('Device token: ${await _firebaseMessaging.getToken()}');
+      final token = await _firebaseMessaging.getToken(vapidKey: _vapidKey);
+      await _sendTokenToServer(token!);
       if (message != null) {
         _onMessageOpened(message);
       }
       onNotificationOpened.listen(_onMessageOpened);
     }
+  }
+
+  Future<void> _sendTokenToServer(String token) {
+    return Future.sync(() => null);
   }
 
   void _onMessageOpened(RemoteMessage message) {
@@ -76,5 +79,15 @@ class NotificationRepository {
         body: notification.body ?? '',
       );
     });
+  }
+
+  /// Subscribe to topic in background.
+  Future<void> subscribeToTopic(Topic topic) async {
+    await _firebaseMessaging.subscribeToTopic(topic.name);
+  }
+
+  /// Unsubscribe from topic in background.
+  Future<void> unsubscribeFromTopic(Topic topic) async {
+    await _firebaseMessaging.unsubscribeFromTopic(topic.name);
   }
 }

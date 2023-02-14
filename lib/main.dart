@@ -14,7 +14,11 @@ Future<void> main() async {
   );
   final navigatorKey = GlobalKey<NavigatorState>();
   final navigatorStateClient = NavigatorStateClient(navigatorKey: navigatorKey);
-  final notificationRepository = NotificationRepository();
+  const vapidKey =
+      'BJiOPAhStJ5Ij1zWdQ8lSCgY8WrIefQLl2d2FL4vMcjX86yxzas8IEyYLVWH_Pwt2GktK3dZCd4X0L5s61O-Lww';
+  final notificationRepository = NotificationRepository(
+    vapidKey: vapidKey,
+  );
   ChatNotificationRoute(client: navigatorStateClient).register(
     notificationRepository.onNotificationOpened,
   );
@@ -53,28 +57,31 @@ class App extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const Scaffold(
-            body: Center(child: Text('Hola')),
+          home: Scaffold(
+            body: BlocListener<NotificationBloc, NotificationState>(
+              listenWhen: (previous, current) {
+                return previous != current &&
+                    current.notification != null &&
+                    current.appState != null;
+              },
+              listener: (context, state) {
+                final notification = state.notification!;
+                if (state.appState!.isForeground) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: ListTile(
+                        title: Text(notification.title),
+                        subtitle: Text(notification.body),
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: const Center(child: Text('Push Notifications!')),
+            ),
           ),
         ),
       ),
     );
-  }
-}
-
-class SomePage extends StatelessWidget {
-  const SomePage({super.key});
-
-  static Route<void> route() {
-    return MaterialPageRoute(
-      builder: (context) {
-        return const SomePage();
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

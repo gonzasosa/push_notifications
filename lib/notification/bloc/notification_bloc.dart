@@ -11,33 +11,39 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         super(const NotificationState.initial()) {
     on<_NotificationOpened>(_onNotificationOpened);
     on<_NotificationInForegroundReceived>(_onNotificationInForegroundReceived);
-    _notificationRepository.onNotificationOpened.listen(_onNotification);
+    _notificationRepository.onNotificationOpened.listen((notification) {
+      add(_NotificationOpened(notification: notification));
+    });
     _notificationRepository.onForegroundNotification.listen(
-      _onForegroundNotification,
+      (notification) {
+        add(_NotificationOpened(notification: notification));
+      },
     );
   }
 
   final NotificationRepository _notificationRepository;
 
-  void _onNotification(Notification notification) {
-    add(_NotificationOpened(notification: notification));
-  }
-
-  void _onForegroundNotification(Notification notification) {
-    add(_NotificationInForegroundReceived(notification: notification));
-  }
-
   void _onNotificationOpened(
     _NotificationOpened event,
     Emitter<NotificationState> emit,
   ) {
-    emit(state.copyWith(notification: event.notification));
+    emit(
+      state.copyWith(
+        notification: event.notification,
+        appState: AppState.background,
+      ),
+    );
   }
 
   void _onNotificationInForegroundReceived(
     _NotificationInForegroundReceived event,
     Emitter<NotificationState> emit,
   ) {
-    emit(state.copyWith(notification: event.notification));
+    emit(
+      state.copyWith(
+        notification: event.notification,
+        appState: AppState.foreground,
+      ),
+    );
   }
 }
